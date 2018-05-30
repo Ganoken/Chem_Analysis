@@ -4,7 +4,7 @@ function [ OutputVector ] = loaddat( file,Pos,DataSize )
 %Because this is used very frequent made it as functon.
 FileID=fopen(sprintf(file),'r');
 fseek(FileID,Pos,'bof');
-OutputVector=fread(fileID,DataSize,'uint16');
+OutputVector=fread(FileID,DataSize,'uint16');
 fclose(FileID);
 end
 
