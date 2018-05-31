@@ -15,11 +15,12 @@ Pixels = X_Pixels*Y_Pixels; % # of total pixels/image
 BatchSize = 100; % # of image to process @one time determine based on memory size
 N = [X_Pixels Y_Pixels BatchSize]; % structure of input data
 BatchCount = Number_Image/BatchSize; % number of division per file
-Number_File = 9; % # of file to analyze 
+Number_File = 9; % # of file to analyze
+%cut = 
 
 %prepare output matrix
-Part_MeanImage = zeros(X_Pixels,Y_Pixels,BatchCount);
-MeanImage = zeros(X_Pixels,Y_Pixels,Number_File);
+Part_MeanImage = zeros(551,451,BatchCount); % change based on the cut
+MeanImage = zeros(551,451,Number_File);
 
 % input file
 file='../../chem_03_cor.dat'; 
@@ -30,7 +31,8 @@ for j = 1:BatchCount
     
     Image = reshape(loaddat(file,(j-1)*BatchSize*Pixels*2,Pixels*BatchSize),[Y_Pixels,X_Pixels,BatchSize]); %load the image
     RawImage = permute(Image,[2 1 3]); %permute
-    Part_MeanImage(:,:,j) = mean(RawImage,3); %obtain a partial mean image
+    CutImage = RawImage (100:650,50:500,:); % cut the image if needed
+    Part_MeanImage(:,:,j) = mean(CutImage,3); %obtain a partial mean image
 
 end
 
