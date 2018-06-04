@@ -45,7 +45,7 @@ FileName = ['I:\chem_analysis\mean\chem_mean_t.mat']; % output file name
 save(FileName,'MeanImage'); 
 
 %normalization
-[Max_Value, I] = max(max(max(MeanImage,[],3))); % find the index
+Max_Value = max(max(max(MeanImage,[],3))); % find the index
 Nor_mean = MeanImage/Max_Value; 
 FileName = ['I:\chem_analysis\mean\chem_nor_mean.mat']; % output file name
 save(FileName,'Nor_mean'); 
