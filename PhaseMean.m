@@ -7,17 +7,23 @@ Y_Pixels = 768;
 %Number_Image = 20000; %Total # of image per file
 Pixels = X_Pixels*Y_Pixels; % # of total pixels/image
 %BatchSize = 200; % # of image to process @one time determine based on memory size
-N = [X_Pixels Y_Pixels BatchSize]; % structure of input data
+%N = [X_Pixels Y_Pixels BatchSize]; % structure of input data
 %BatchCount = Number_Image/BatchSize; % number of division per file
 %Number_File = 9; % # of file to analyze
 cut_Y = 100:600;
 cut_X = 100:600;
+file = 'I:/ch0618/ch_17_cor.dat';
  
-Phase = zeros ((length(TimeUse)-1),2,PhaseDivision,'uint16'); %contains the position and # of images for certain phase 
-pos = 1; %Psition of image
+Phase = zeros ((length(TimeUse)-1),2,PhaseDivision); %contains the position and # of images for certain phase 
 ImageTimeVector = 0:1/10000:2-(1/10000); %Time vector for camera image used as the position
-
 s=1;
+pos = 1;
+x = ImageTimeVector(pos:end) < PhaseTimeStamps (s);
+pos = pos+nnz(x);
+ %Psition of image
+
+
+%s=1;
 for k=1:(length(TimeUse)-1)
     
     for j=1:PhaseDivision
@@ -33,6 +39,7 @@ for k=1:(length(TimeUse)-1)
     
 end
 
+%% method for .mat file
 % numArrays = 10;
 % BI = cell(numArrays,1);
 % for n = 1:numArrays
@@ -82,30 +89,34 @@ end
 %     %MeanImage(:,:,j) = SumImage/length
 % end
 % 
-% FileName = 'I:/ch0618/mat/Phasemean/chem_off_mean.mat'; % output file name
+% FileName = ''; % output file name
 % save(FileName,'MeanImage');  
 
 
 
-
+%%directly use .dat
 MeanImage = zeros(501,501,PhaseDivision);
-PhaseImage = zeros(501,501,700); %700 is an arbitary number
+Part_PhaseImage = zeros(501,501,5);
+PhaseImage = zeros(501,501,370); %700 is an arbitary number
+
 for j=1:PhaseDivision
         m=1;
     for k=1:(length(TimeUse)-1)
         if Phase(k,1,j) == 0
             break
         end
-        Image = reshape(loaddat(filename, Phase(k,1,j)*Pixels*2,Pixels*Phase(k,2,j)),[Y_Pixels,X_Pixels,BatchSize]); %load the image
-        PhaseImage = permute(Image(cut_X(1,:),cut_Y(1,:),:),[2 1 3]); %permute
+        Image = reshape(loaddat(file,(Phase(k,1,j)-1)*Pixels*2,Pixels*Phase(k,2,j)),[Y_Pixels,X_Pixels,Phase(k,2,j)]); %load the image
+        Part_PhaseImage = permute(Image(cut_X(1,:),cut_Y(1,:),:),[2 1 3]); %permute
+        PhaseImage(:,:,m)  = mean(Part_PhaseImage,3);
+        m=m+1;
 %         for l=1:Phase(k,2,j)
 %             PhaseImage(:,:,m) = BinarizeImage(:,:,Phase(k,1,j)+l-1);
 %             m=m+1;
 %         end
     end
-    MeanImage = mean(PhaseImage,3);
+    MeanImage (:,:,j) = mean(PhaseImage,3);
    
 end
 
-FileName = '../../Output/MeanImage/20170104L_75_on_1_201701_1147mean.mat'; % output file name
+FileName = 'I:/ch0618/PM/chem_60_mean_2.mat'; % output file name
 save(FileName,'MeanImage');  
