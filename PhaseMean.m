@@ -94,7 +94,7 @@ end
 
 
 
-%%directly use .dat
+%% directly use .dat
 MeanImage = zeros(501,501,PhaseDivision);
 Part_PhaseImage = zeros(501,501,5);
 PhaseImage = zeros(501,501,370); %700 is an arbitary number
@@ -109,13 +109,9 @@ for j=1:PhaseDivision
         Part_PhaseImage = permute(Image(cut_X(1,:),cut_Y(1,:),:),[2 1 3]); %permute
         PhaseImage(:,:,m)  = mean(Part_PhaseImage,3);
         m=m+1;
-%         for l=1:Phase(k,2,j)
-%             PhaseImage(:,:,m) = BinarizeImage(:,:,Phase(k,1,j)+l-1);
-%             m=m+1;
-%         end
     end
     MeanImage (:,:,j) = mean(PhaseImage,3);
-   
+   %Max_Image(1,j) = max(max(MeanImage(:,:,j)));
 end
 
 FileName = 'I:/ch0618/PM/chem_60_mean_2.mat'; % output file name
