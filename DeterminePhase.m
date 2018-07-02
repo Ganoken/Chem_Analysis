@@ -5,7 +5,7 @@
 %% initialize and load data
 Frequency = 20e3;%kHz sampling freq
 %RawPData = csvread('I:/pres/20180618/pressure_19.xlsx'); %%Assuming the data is in csv format maybe use input
-RawPData = xlsread('I:/pres/20180618/pressure_18.xlsx','A2:A200001');
+RawPData = xlsread('I:/pres/20180618/pressure_19.xlsx','A2:A200001');
 DataCount = length(RawPData); % Get the # of Data 
 MaxT = DataCount/Frequency; % Get the duration of data
 TimeLine = 0:1/Frequency:MaxT-(1/Frequency); % Generate the time vactor for the Data
@@ -16,17 +16,21 @@ PhaseDivision = 32; % # of phase
 % frequncyhigh=[220 151]; % higher side
 % filter1 = generatefilter(0,frequncylow(1),frequncyhigh(1),Frequency); % 0:bandpass, 1:bandstop
 % filter2 = generatefilter(1,frequncylow(2),frequncyhigh(2),Frequency); 
+windowSize = 20; 
+b = (1/windowSize)*ones(1,windowSize);
+a = 1;
 
 %% Apply filter if needed
 % FilteredData1 = ApplyFilter (filter1,RawPData); % pass the filter and data
 % FilteredData2 = ApplyFilter (filter2,FilteredData1); % increase as many times desired
+filtered = filtfilt(b,a,RawPData);
 
 %% Check whether desired filtered signal is otained
 % freq comp
 % pwr
 
 %% Peak Detection
-[Peaks,TimeStamps] = findpeaks(RawPData,TimeLine,'MinPeakDistance',0.0045);
+[Peaks,TimeStamps] = findpeaks(filtered,TimeLine,'MinPeakDistance',0.01);
 %Take the desired length
 
 %% Elemenate initial large peaks if needed

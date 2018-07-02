@@ -7,7 +7,7 @@ FileIndex = [50 60 70 80 90 100 110 120 0]; % if off does not work use 0
  numArrays = 9;
  BI = cell(numArrays,1);
  for n = 1:numArrays
-     FileName = ['G:/ch0618/PM/chem_' num2str(FileIndex(n)) '_mean_2.mat']; % need to change 
+     FileName = ['I:/ch0618/PM/chem_' num2str(FileIndex(n)) '_mean_3.mat']; % need to change 
      BI{n} = load(FileName);
  end
 
@@ -22,14 +22,14 @@ FileIndex = [50 60 70 80 90 100 110 120 0]; % if off does not work use 0
     [Max_Value(n), Index_Phase(n)] = max(Max_Value_Phase);
  end
  
- Grand_Max = max(Max_Value);
- FileName = ['G:\ch0618\PM\Index_Phase.mat']; % output file name
+ [Grand_Max, Index] = max(Max_Value);
+ FileName = ['I:\ch0618\PM\Index_Phase.mat']; % output file name
  save(FileName,'Index_Phase'); 
  
  %% Normalize
  PhaseMeanImage = zeros(501,501,32);
  for n = 1:numArrays
      PhaseMeanImage =(BI{n}.MeanImage(:,:,:))/Grand_Max;
-     FileName = ['G:/ch0618/PM/chem_' num2str(FileIndex(n)) '_mean_nor.mat'];
+     FileName = ['I:/ch0618/PM/chem_' num2str(FileIndex(n)) '_mean_nor.mat'];
      save(FileName,'PhaseMeanImage'); 
  end

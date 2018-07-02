@@ -12,7 +12,7 @@ Pixels = X_Pixels*Y_Pixels; % # of total pixels/image
 %Number_File = 9; % # of file to analyze
 cut_Y = 100:600;
 cut_X = 100:600;
-file = 'I:/ch0618/ch_17_cor.dat';
+file = 'I:/ch0618/ch_18_cor.dat';
  
 Phase = zeros ((length(TimeUse)-1),2,PhaseDivision); %contains the position and # of images for certain phase 
 ImageTimeVector = 0:1/10000:2-(1/10000); %Time vector for camera image used as the position
@@ -98,6 +98,9 @@ end
 MeanImage = zeros(501,501,PhaseDivision);
 Part_PhaseImage = zeros(501,501,5);
 PhaseImage = zeros(501,501,370); %700 is an arbitary number
+Max_Image = zeros(1,PhaseDivision);
+%Max_Value = zeros(1,9);
+%Index_Phase =zeros(1,9);
 
 for j=1:PhaseDivision
         m=1;
@@ -111,8 +114,13 @@ for j=1:PhaseDivision
         m=m+1;
     end
     MeanImage (:,:,j) = mean(PhaseImage,3);
-   %Max_Image(1,j) = max(max(MeanImage(:,:,j)));
+    %Max_Image(1,j) = max(max(MeanImage(:,:,j)));
 end
 
-FileName = 'I:/ch0618/PM/chem_60_mean_2.mat'; % output file name
+%[Max_Value(2), Index_Phase(2)] = max(Max_Image);
+FileName = 'I:/ch0618/PM/chem_50_mean_3.mat'; % output file name
 save(FileName,'MeanImage');  
+
+
+
+ 
