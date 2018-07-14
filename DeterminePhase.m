@@ -5,7 +5,7 @@
 %% initialize and load data
 Frequency = 20e3;%kHz sampling freq
 %RawPData = csvread('I:/pres/20180618/pressure_19.xlsx'); %%Assuming the data is in csv format maybe use input
-RawPData = xlsread('I:/pres/20180618/pressure_19.xlsx','A2:A200001');
+RawPData = xlsread('I:/pres/20180618/pressure_14.xlsx','A2:A200001');
 DataCount = length(RawPData); % Get the # of Data 
 MaxT = DataCount/Frequency; % Get the duration of data
 TimeLine = 0:1/Frequency:MaxT-(1/Frequency); % Generate the time vactor for the Data

@@ -7,7 +7,7 @@ FileIndex = [50 60 70 80 90 100 110 120 0]; % if off does not work use 0
  numArrays = 9;
  BI = cell(numArrays,1);
  for n = 1:numArrays
-     FileName = ['I:/ch0618/PM/chem_' num2str(FileIndex(n)) '_mean_3.mat']; % need to change 
+     FileName = ['I:/ch0618/PM/chem_' num2str(FileIndex(n)) '_mean_f.mat']; % need to change 
      BI{n} = load(FileName);
  end
 
