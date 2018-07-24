@@ -5,6 +5,13 @@ load(filename);
 
 Part_Mean = mean(mean(MeanImage,1),2);
 
+Max_Value = zeros(1,9);
+Index_Phase =zeros(1,9);
+[Max_Value(9), Index_Phase(9)] = max(Part_Mean(1,1,:));
+
+FileName = 'G:/ch0618/PM/chem_index_mean_f.mat'; % output file name
+save(FileName,'Index_Phase');  
+
 %y=zeros(1,33);
 
 yp(1,1:32)=Part_Mean(1,1,:)-y(2);
