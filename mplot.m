@@ -1,6 +1,6 @@
 %
 
-filename = ['I:\ch0618\output\chem_mean_2.mat'];
+filename = ['G:\ch0618\output\chem_nor_mean_2.mat'];
 load(filename);
 
 Part_Mean = mean(mean(MeanImage,1),2);
@@ -35,15 +35,19 @@ pbaspect([1.62 1 1])
 %loglog(ff,pxxf,'-r')
  ax = gca;
    %ax.XLim = [0 2*pi];
-      ax.YLim = [190 230];
+      %ax.YLim = [190 230];
       ax.XTickMode = 'manual';
-  %    ax.YTickMode = 'manual';
+      ax.YTickMode = 'manual';
 %      %xtickformat('%.1f')
 %      ytickformat('%.1f')
      % ax.XTick = 0:pi/4:2*pi;
-      ax.XTickLabel=({'50', '60', '70', '80', '90', '100', '110', '120'});
+     ax.XTick = -30:2:34;
+      %ax.XTickLabel=({'50', '60', '70', '80', '90', '100', '110', '120'});
    %   ax.XTickLabel=({'0', '1/4\pi', '1/2\pi', '3/4\pi', 'pi', '5/4\pi', '3/2\pi', '7/4\pi', '2\pi'});
+   ax.XTickLabel=({'-30', '-10', '0', '10', '30'});
  %    ax.YTick = 190:20:230;
+ ax.YTick = 2:10:72;
+ ax.YTickLabel=({'10', '30', '50', '70'});
      ax.FontSize = 18;
      ax.FontName =  'Times New Roman';
      ax.TitleFontSizeMultiplier = 2;
